@@ -153,7 +153,86 @@ public class GeneratorTest {
 		}
 	}
 	
+	/*
+	 * Testing whether the values for width and height is switched after rotating
+	 * the image for -90 degrees. Also testing whether the image is the same as 270
+	 * degrees rotated image.
+	 */
+	@Test
+	public void TestRotateImageMinus90Rotation(){
+		
+		rotImage = generator.rotateImage(image, -(Math.PI/2));
+		
+		//First comparing height, width before and after.
+		assertEquals(rotImage.getHeight(), image.getWidth());
+		assertEquals(rotImage.getWidth(), image.getHeight());
+		
+		BufferedImage posRotated = generator.rotateImage(image, 3*(Math.PI/2));
+		
+		/*
+		 * Then comparing the RGB-values of each image before and after rotating to see
+		 * whether it's the same image.
+		 */
+		int y = 0;	//y-coordinate for pixel
+		int x = 0;	//x-coordinate for pixel
+		int count = 1;
+		
+		while (y < posRotated.getHeight()) {
+			
+			while (x < posRotated.getWidth()) {
+				assertEquals(rotImage.getRGB(x, y), posRotated.getRGB(x, y));
+				x++;
+				count++;
+			}
+			y++;
+			
+			//Resetting x-parameter.
+			x = 0;
+		}
+		//Testing whether it was run over every pixel.
+		assertEquals(count, 149761);
+	}
 	
+	/*
+	 * Testing whether the values for width and height is switched after rotating
+	 * the image for -270 degrees. Also testing whether the image is the same as 90
+	 * degrees rotated image.
+	 */
+	@Test
+	public void TestRotateImageMinus270Rotation() {
+		
+		rotImage = generator.rotateImage(image, -3*(Math.PI/2));
+		
+		//First comparing height, width before and after.
+		assertEquals(rotImage.getHeight(), image.getWidth());
+		assertEquals(rotImage.getWidth(), image.getHeight());
+		
+		BufferedImage posRotated = generator.rotateImage(image, (Math.PI/2));
+		
+		/*
+		 * Then comparing the RGB-values of each image before and after rotating to see
+		 * whether it's the same image.
+		 */
+		int y = 0;	//y-coordinate for pixel
+		int x = 0;	//x-coordinate for pixel
+		int count = 1;
+		
+		while (y < posRotated.getHeight()) {
+			
+			while (x < posRotated.getWidth()) {
+				assertEquals(rotImage.getRGB(x, y), posRotated.getRGB(x, y));
+				x++;
+				count++;
+			}
+			y++;
+			
+			//Resetting x-parameter.
+			x = 0;
+		}
+		//Testing whether it was run over every pixel.
+		assertEquals(count, 149761);
+		
+	}
 	
 	
 
