@@ -65,6 +65,17 @@ public class GeneratorTest {
 		
 	}
 	
+	/**
+	 * Testing whether the argument 0.42 as second argument (rotation) will
+	 * throw a IllegalArgumentException (as expected).
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testRotateImageIllegalArgument() {
+		
+		generator.rotateImage(image, 0.42);
+		
+	}
+	
 	
 
 }
