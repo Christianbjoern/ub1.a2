@@ -5,9 +5,12 @@ import static org.junit.Assert.assertEquals;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,6 +39,27 @@ public class GeneratorTest {
 		 image = ImageIO.read(new File("src/test/resources/image.jpg"));
 		 rotImage = null;
 		 
+	}
+	
+	/**
+	 * Method is saving the images after every test case to target folder: target/test
+	 * (Creating folder in case it's not existing)
+	 * 
+	 * @throws IOException 
+	 */
+	@After
+	public void tearDown() throws IOException {
+		SimpleDateFormat simple = new SimpleDateFormat("MM-dd_HH.mm.ss.SSS");
+		String date = simple.format(new Date());
+		
+		new File("target/test").mkdir();
+		
+		if (rotImage != null) {
+			
+			ImageIO.write(rotImage, "jpg", new File("target/test/" + "Image_rotated_" + date + ".jpg"));
+		}
+		image = null;
+		
 	}
 	
 	/**
@@ -161,13 +185,13 @@ public class GeneratorTest {
 	@Test
 	public void TestRotateImageMinus90Rotation(){
 		
-		rotImage = generator.rotateImage(image, -(Math.PI/2));
+		rotImage = generator.rotateImage(image, -(Math.PI / 2));
 		
 		//First comparing height, width before and after.
 		assertEquals(rotImage.getHeight(), image.getWidth());
 		assertEquals(rotImage.getWidth(), image.getHeight());
 		
-		BufferedImage posRotated = generator.rotateImage(image, 3*(Math.PI/2));
+		BufferedImage posRotated = generator.rotateImage(image, 3 * (Math.PI / 2));
 		
 		/*
 		 * Then comparing the RGB-values of each image before and after rotating to see
@@ -201,13 +225,13 @@ public class GeneratorTest {
 	@Test
 	public void TestRotateImageMinus270Rotation() {
 		
-		rotImage = generator.rotateImage(image, -3*(Math.PI/2));
+		rotImage = generator.rotateImage(image, -3 * (Math.PI / 2));
 		
 		//First comparing height, width before and after.
 		assertEquals(rotImage.getHeight(), image.getWidth());
 		assertEquals(rotImage.getWidth(), image.getHeight());
 		
-		BufferedImage posRotated = generator.rotateImage(image, (Math.PI/2));
+		BufferedImage posRotated = generator.rotateImage(image, (Math.PI / 2));
 		
 		/*
 		 * Then comparing the RGB-values of each image before and after rotating to see
