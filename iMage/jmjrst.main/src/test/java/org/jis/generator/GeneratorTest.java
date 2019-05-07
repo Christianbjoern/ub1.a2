@@ -11,7 +11,12 @@ import javax.imageio.ImageIO;
 import org.junit.Before;
 import org.junit.Test;
 
-
+/**
+ * Testclass for testing method of GeneratorTest.
+ * 
+ * @author Marco Kugler
+ *
+ */
 public class GeneratorTest {
 	
 	private Generator generator;
@@ -22,7 +27,7 @@ public class GeneratorTest {
 	 * Setting up an object of Generator for the test cases. Also reading the
 	 * image.jpg from src/test/resources into "image"-variable.
 	 * 
-	 * @throws IOException
+	 * @throws IOException If file nout found.
 	 */
 	@Before
 	public void setUp() throws IOException {
@@ -75,6 +80,80 @@ public class GeneratorTest {
 		generator.rotateImage(image, 0.42);
 		
 	}
+	
+	/**
+	 * Testing whether the values for width and height is switched after rotating
+	 * the image for 90 degrees. Also testing whether the image is staying the same rotated
+	 * image after rotating.
+	 */
+	@Test
+	public void testRotateImage90Rotation() {
+		
+		//Rotating the image for 90 degrees.
+		rotImage = generator.rotateImage(image, Math.PI / 2);
+		
+		//First comparing the height and width before and after rotating.
+		assertEquals(rotImage.getHeight(), image.getWidth());
+		assertEquals(rotImage.getWidth(), image.getHeight());
+		
+		/*
+		 * Then comparing the RGB-values of each image before and after rotating to see
+		 * whether it's the same image.
+		 */
+		int y = 0;	//y-coordinate for pixel
+		int x = 0;	//x-coordinate for pixel
+		int yRotated = image.getHeight() - 1;	//y-coordinate in rotated image
+		
+		//Loop running over every pixel of images and comparing the RGB-value.
+		while (y < image.getHeight()) {
+			
+			while (x < image.getWidth()) {
+				assertEquals(image.getRGB(x, y), rotImage.getRGB(yRotated, x));
+				x++;
+			}
+			x = 0;
+			y++;
+			yRotated--;
+		}
+	}
+	
+	/**
+	 * Testing whether the values for width and height is switched after rotating
+	 * the image for 270 degrees. Also testing whether the image is staying the same rotated
+	 * image after rotating.
+	 */
+	@Test
+	public void TestRotateImage270Rotation() {
+		
+		//Rotating the image for 270 degrees.
+		rotImage = generator.rotateImage(image, 3 * (Math.PI / 2));
+		
+		//First comparing height, width before and after.
+		assertEquals(rotImage.getHeight(), image.getWidth());
+		assertEquals(rotImage.getWidth(), image.getHeight());
+		
+		/*
+		 * Then comparing the RGB-values of each image before and after rotating to see
+		 * whether it's the same image.
+		 */
+		int y = 0;	//y-coordinate for pixel
+		int x = 0;	//x-coordinate for pixel
+		int xRotated = image.getWidth() - 1;	//x-coordinate in rotated image
+		
+		while (y < image.getHeight()) {
+			
+			while (x < image.getWidth()) {
+				assertEquals(image.getRGB(x, y), rotImage.getRGB(y, xRotated));
+				xRotated--;
+				x++;
+			}
+			y++;
+			x = 0;	//Resetting x-parameter.
+			xRotated = image.getWidth() - 1;
+		}
+	}
+	
+	
 	
 	
 
