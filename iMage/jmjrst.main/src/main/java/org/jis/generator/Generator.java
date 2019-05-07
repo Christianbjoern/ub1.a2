@@ -222,7 +222,7 @@ public class Generator {
         }
       }
 
-      final File files[] = dir;
+      final File[] files = dir;
       Thread t = new Thread()
       {
         public void run()
