@@ -46,3 +46,7 @@ __MACOSX/
 
 # Windows
 Thumbs.db
+
+# Ignoring target folders
+iMage/jmjrst.main/target/
+iMage/target/
