@@ -45,8 +45,7 @@ public class Consumer implements Runnable {
 
   public void run()
   {
-    try
-    {
+    try {
       while (producer.isDone() == false || producer.queue.size() > 0)
       {
 
