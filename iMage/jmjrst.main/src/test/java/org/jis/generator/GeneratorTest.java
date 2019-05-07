@@ -1,5 +1,7 @@
 package org.jis.generator;
 
+import static org.junit.Assert.assertEquals;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.junit.Before;
+import org.junit.Test;
 
 
 public class GeneratorTest {
@@ -29,5 +32,39 @@ public class GeneratorTest {
 		 rotImage = null;
 		 
 	}
+	
+	/**
+	 * Testing whether rotateImage is returning the same image for the
+	 * rotating argument 0.0.
+	 */
+	@Test
+	public void testRotateImage0Rotation() {
+		
+		rotImage = generator.rotateImage(image, 0.0);
+		
+		int y = 0;	//y-coordinate for pixel
+		int x = 0;	//x-coordinate for pixel
+		
+		while (y < rotImage.getHeight()) {
+			while (x < rotImage.getWidth()) {
+				assertEquals(image.getRGB(x, y), rotImage.getRGB(x, y));
+				x++;
+			}
+			y++;
+			x = 0;	//Resetting x-parameter.
+		}
+	}
+	
+	/**
+	 * Testing whether rotateImage is returning null for the argument null.
+	 */
+	@Test
+	public void testRotateImageNullImage() {
+		
+		assertEquals(generator.rotateImage(null, 0.0), null);
+		
+	}
+	
+	
 
 }
